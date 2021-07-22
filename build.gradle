@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to
+// all sub-projects/modules.
+/*buildscript中的声明是gradle脚本自身需要使用的资源。
+可以声明的资源包括依赖项、第三方插件、maven仓库地址等。
+而在build.gradle文件中直接声明的依赖项、仓库地址等信息是项目自身需要的资源*/
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        //Android Gradle的版本为3.5.2
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        //Android插件版本2.1
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+/*allprojects是对所有project的配置，包括Root Project。
+而subprojects是对所有Child Project的配置*/
+allprojects {
+    repositories {
+        google()
+  //      maven { url 'http://raw.github.com/saki4510t/libcommon/master/repository/' }
+        maven { url 'http://raw.github.com/saki4510t/libcommon/master/repository/' }
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+//使用ext来添加属性，Gradle中所有实现了ExtensionAware接口的API都可通过ext添加属性。
+ext {
+    androidXVersion = '1.1.0'  // variable that can be referenced to keep support libs consistent
+    commonLibVersion= '4.1.1'
+    versionCompiler = 28
+    // when target=27, 9.0 is ok
+    versionTarget = 27
+    // if hope supporting 4.4
+    // please modify it to 16
+    minSdkVersion = 21
+    versionCode = 100
+    versionNameString = '2.3.5.20210316'
+    javaSourceCompatibility = JavaVersion.VERSION_1_8
+    javaTargetCompatibility = JavaVersion.VERSION_1_8
+}
